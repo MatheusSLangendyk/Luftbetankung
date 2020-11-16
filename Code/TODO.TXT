@@ -1,0 +1,24 @@
+%%%%%% KW 47 %%%%%%%%%%%%%%%%%%
+
+- Aerodynamische Beiwerte
+   
+
+- Sinnvolle Anfangswerte (Trim)
+
+- omega_g
+
+- ATmosphäre besser modellieren
+
+- Code wiederholen und koorigieren
+
+- Wind Modellieren
+
+- Modell übersichtlicher gestalten
+
+%%%%%%% KW 48%%%%%%%%%%%%%%%%%%
+- Arbeitspunkte Bestimmung
+-Linearisierung und vereinfachung
+
+- A,B (und villeicht C) Matrizen erhalten
+
+- Kommentieren und übersetzen
