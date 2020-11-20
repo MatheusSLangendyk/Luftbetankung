@@ -1,24 +1,37 @@
-%%%%%% KW 47 %%%%%%%%%%%%%%%%%%
 
-- Aerodynamische Beiwerte
-   
+Frage schicken
 
-- Sinnvolle Anfangswerte (Trim)
 
-- omega_g
+%%%%%%% KW 48/ KW 49%%%%%%%%%%%%%%%%%%
+- Nicht lineares System als Formel darstellen
 
-- ATmosphäre besser modellieren
+- Trim, um die AP zu erhalten 
 
-- Code wiederholen und koorigieren
-
-- Wind Modellieren
-
-- Modell übersichtlicher gestalten
-
-%%%%%%% KW 48%%%%%%%%%%%%%%%%%%
-- Arbeitspunkte Bestimmung
 -Linearisierung und vereinfachung
 
 - A,B (und villeicht C) Matrizen erhalten
 
+- Lineares Modell simulieren
+
+-Lineares Modell (bzgl. nicht-linearem) validieren 
+
 - Kommentieren und übersetzen
+
+
+%%%%%%% KW 49/ KW 50%%%%%%%%%%%%%%%%%%
+- Prüfen nach Steuer- und Beobachtbarkeit
+
+- Eigenwerte analysieren und plausabilisieren
+
+-Evntl. Sensorik + Rauschen einfügen 
+
+- Consideration of Limits / Saturations (look at the videos)
+
+%%%%%%%%%%%% Probleme %%%%%%%%%%%%%%%%%
+- Windmodell geht noch nicht 
+
+- P_e init Änderung spackt
+
+- x_e negativ ?
+
+- Selector for the height
