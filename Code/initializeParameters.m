@@ -8,6 +8,7 @@ m = 120000; %Mass [kg]
 rho_const = 1.25; %Airdensity (simplification)
 omega_e = 7.29211510*10^(-5); %Rotation Speed of earth [rad/s]
 he = 6356752; %Earth radius [m]
+he = 0;
 Omega_e_tilde = vecToMat([0;0;omega_e]);
 
 % Inertia and Paramethers of the Plain
