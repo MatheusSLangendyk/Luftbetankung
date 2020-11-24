@@ -38,10 +38,10 @@ F_max = globalParameters.Fmax;
 CA0 = 1.104;
 grad_alpha = 5.5;
 alpha_L0 = 11.5*pi/180;
-a3 = -768.5;
-a2 = 609.2;
-a1 = -155.2;
-a0 = 15.212;
+% a3 = -768.5;
+% a2 = 609.2;
+% a1 = -155.2;
+% a0 = 15.212;
 gradient_alpha_epsolon = 0.25;
 gradient_CQ_Cbeta = -1.6;
 gradientCQ_Czita = 0.24;
@@ -56,11 +56,11 @@ VA = vA*[sqrt((1-sin(beta)^2)/(1+tan(alpha)^2));sin(beta);tan(alpha)*sqrt((1-sin
 
 %--------------Aerodynamical Coefficients------------%
 %Forces Coefficients
-if alpha <=14.5*pi/180
+%if alpha <=14.5*pi/180
     CA_F = grad_alpha*alpha+CA0; % Lift Coefficient without the Control Aereas
-else
-    CA_F = a3*alpha^.3+a2*alpha^.2+a1*alpha +a0;% Lift Coefficient without the Control Aereas
-end
+% else
+%     CA_F = a3*alpha^.3+a2*alpha^.2+a1*alpha +a0;% Lift Coefficient without the Control Aereas
+% end
 epsolon = gradient_alpha_epsolon*(alpha - alpha_L0); %Downwash [rad]
 alpha_t = alpha - epsolon + eta +q*lt/vA; %Angle of Attack of the Tail [rad]
 CA_H = 3.1*(St/S)*alpha_t; %Lift Coefficient of the Control Aereas (Elevator-Tail)

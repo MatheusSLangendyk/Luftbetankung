@@ -3,7 +3,7 @@ Frage schicken
 
 
 %%%%%%% KW 48/ KW 49%%%%%%%%%%%%%%%%%%
-- Nicht lineares System als Formel darstellen
+- Modelle Validieren
 
 - Trim, um die AP zu erhalten 
 
@@ -28,10 +28,11 @@ Frage schicken
 - Consideration of Limits / Saturations (look at the videos)
 
 %%%%%%%%%%%% Probleme %%%%%%%%%%%%%%%%%
+- Ableitung vA auch berücksichtigen (?)
+
 - Windmodell geht noch nicht 
 
 - P_e init Änderung spackt
 
-- x_e negativ ?
 
 - Selector for the height
