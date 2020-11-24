@@ -19,3 +19,4 @@ U_test = [-0.3;0.2;0;0];
 [X_ap,U_ap,f0] = trimValues(vA_init,P_e_init);
 
 %X_init = X_ap;
+[A,B,~] = linmod('Plain_linmod',X_ap,U_ap);

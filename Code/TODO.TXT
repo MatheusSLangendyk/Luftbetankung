@@ -5,7 +5,7 @@ Frage schicken
 %%%%%%% KW 48/ KW 49%%%%%%%%%%%%%%%%%%
 - Modelle Validieren
 
-- Trim, um die AP zu erhalten 
+- Modelle mit Flight Gear Animieren
 
 -Linearisierung und vereinfachung
 
@@ -15,7 +15,6 @@ Frage schicken
 
 -Lineares Modell (bzgl. nicht-linearem) validieren 
 
-- Kommentieren und übersetzen
 
 
 %%%%%%% KW 49/ KW 50%%%%%%%%%%%%%%%%%%

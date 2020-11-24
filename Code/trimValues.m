@@ -6,8 +6,7 @@ function [X_ap,U_ap,f0] = trimValues(vA_init,P_e_init)
 
 Z_guess = zeros(16,1);
 Z_guess(3) = vA_init; 
-%Z_guess(11) = P_e_init(3);
-Z_guess(11) = 1
+Z_guess(11) = P_e_init(3);
 f_prev = inf;
 f0 = inf;
 while f0 > 10e-5
@@ -17,10 +16,10 @@ while f0 > 10e-5
          break
      end
      f_prev = f0;
-     X_ap = Z_ap(1:12);
-     U_ap = Z_ap(13:16);
      Z_guess = Z_ap;
-     
-     
+         
 end
+X_ap = Z_ap(1:12);
+U_ap = Z_ap(13:16);
 
+end
