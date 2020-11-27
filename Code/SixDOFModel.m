@@ -19,4 +19,21 @@ U_test = [-0.3;0.2;0;0];
 [X_ap,U_ap,f0] = trimValues(vA_init,P_e_init);
 
 %X_init = X_ap;
-[A,B,~] = linmod('Plain_linmod',X_ap,U_ap);
+%Linearisation
+[A,B] = implicit_linmod(@model_implicit,X_ap,U_ap);
+C = diag(ones(12,1));
+%Contolable/ Obsarvable
+Ms = ctrb(A,B);
+Mb = obsv(A,C);
+if rank(Ms) ~= min(size(Ms,1),size(Ms,2))
+    disp('System is not Controllable')
+else
+    disp('System is Controllable')
+end
+if rank(Mb) ~= min(size(Mb,1),size(Mb,2))
+    disp('System is not Obsarvable')
+else
+    disp('System is Obsarvable')
+end
+% Stability and Dynamics
+eigenvalues = eig(A);
