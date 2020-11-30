@@ -34,7 +34,7 @@ P_aerodynCenter = [0.12*c;0;0];
 
 %Motor and Thrust
 P_thrust = [0.23*c;0;0.1*c+1.9]; %Position of the motor [m] 
-i_f = pi/100; %Direction of Thrus [rad];
+i_f = 0 ; %Direction of Thrus [rad];
 F_max = 2*128000; %Maximale Schubkraft ohne Nachbrenner [N]
 
 globalParameters.g = g;

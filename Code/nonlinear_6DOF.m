@@ -103,7 +103,7 @@ P_thrust_tilde = vecToMat(P_thrust);
 Qf = P_thrust_tilde*Rf; %Thrust Moment
 
 Q_total = Qf + QA; %Sum of external Moments in Body reference Frame [Nm]
-R_total =RA + Rf; %Sum of external Forces in Body reference Frame [N]
+R_total = RA + Rf; %Sum of external Forces in Body reference Frame [N]
 
 %-------------- Equations of Motion ------------%
 %Dynamic
