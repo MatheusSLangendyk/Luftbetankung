@@ -12,6 +12,9 @@ x = X(9);
 y = X(10);
 z = X(11);
 psi = X(12);
+u = X(13);
+v = X(14);
+w = X(15);
 
 %--------------Control------------%
 eta = U(1);
@@ -52,11 +55,11 @@ kappa = 0.07;
 %--------------Variables------------%
 q_d = 0.5*rho_const*vA^2; %Dynamic Preassure
 Omega = [p;q;r];
-VA = vA*[sqrt((1-sin(beta)^2)/(1+tan(alpha)^2));sin(beta);tan(alpha)*sqrt((1-sin(beta)^2)/(1+tan(alpha)^2))];
+V = [u;v;w];
 
 %--------------Aerodynamical Coefficients------------%
 %Forces Coefficients
-%if alpha <=14.5*pi/180
+% if alpha <=14.5*pi/180
     CA_F = grad_alpha*alpha+CA0; % Lift Coefficient without the Control Aereas
 % else
 %     CA_F = a3*alpha^.3+a2*alpha^.2+a1*alpha +a0;% Lift Coefficient without the Control Aereas
@@ -111,11 +114,11 @@ R_total = RA + Rf; %Sum of external Forces in Body reference Frame [N]
 Tfg =  coordTransfMatrix(phi,1)*coordTransfMatrix(theta,2)*coordTransfMatrix(psi,3); % Transformation Matrix goedetic --> body reference Frame
 Omega_tilde = vecToMat(Omega);
 
-V = VA; %Under negletance of the Wind
+
 dOmega = I_inv*(Q_total - Omega_tilde*I*Omega); %Derivative of Rotation Rate (body Reference Frame)
 dV = R_total/m + Tfg*[0;0;g] - (Omega_tilde + Omega_e_tilde)*V; %Derivatitive of the Speed (body Reference Frame)
-dvA = (V(1)*dV(1) + V(2)*dV(2) +V(3)*dV(3))/sqrt(V(1)^2+V(2)^2+V(3)^2); %Derivative of the Approach Speed
-dalpha = (dV(3)*V(1)-dV(1)*V(3))/(V(1)^2+V(1)*V(3)); %Derivative of Angle of Attack
+dvA = (u*dV(1) + v*dV(2) +w*dV(3))/sqrt(u^2+v^2+w^2); %Derivative of the Approach Speed
+dalpha = (dV(3)*u-dV(1)*w)/(u^2+u*w); %Derivative of Angle of Attack
 dbeta = (dV(2)*vA -dvA*V(2))/(vA*sqrt(vA^2-V(2)^2)); %Derivative of Sideslip Angle
 dp = dOmega(1); %Yield Angular Acceleration 
 dq = dOmega(2); %Pitch Angular Acceleration 
@@ -135,7 +138,10 @@ dPhi = J*Omega; %Derivative of Euler Angles
 dphi = dPhi(1); 
 dtheta = dPhi(2);
 dpsi = dPhi(3);
-dX = [dalpha;dq;dvA;dtheta;dr;dbeta;dp;dphi;dx;dy;dz;dpsi];
+du = dV(1); %Derivative 1-Component Velocity (Body Reference Frame)
+dv = dV(2); %Derivative 2-Component Velocity (Body Reference Frame)
+dw = dV(3); %Derivative 3-Component Velocity (Body Reference Frame)
+dX = [dalpha;dq;dvA;dtheta;dr;dbeta;dp;dphi;dx;dy;dz;dpsi;du;dv;dw];
 
 end
 

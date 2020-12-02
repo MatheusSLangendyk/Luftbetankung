@@ -1,13 +1,13 @@
 
 
 %%%%%%% KW 48/ KW 49%%%%%%%%%%%%%%%%%%
--x,y vom Zustand entfernen ---> Koordinaten aber für die Visualisierung erforderlich ----> Skrypt für weniger Zustände anpassen
+- dx ungleich null
 
 
 
 - Modelle Validieren
 
-- C Matrix erhalten
+
 
 -Lineares Modell (bzgl. nicht-linearem) validieren 
 
@@ -18,14 +18,12 @@
 
 -Evntl. Sensorik + Rauschen einfügen 
 
-- Consideration of Limits / Saturations (look at the videos)
 
 %%%%%%%%%%%% Probleme %%%%%%%%%%%%%%%%%
 - Ableitung vA auch berücksichtigen (?)
 
 - Windmodell geht noch nicht 
 
-- P_e init Änderung spackt
 
 - Was wären sinnvolle Ausgänge ?
   Villeicht: vA, alpha, beta
@@ -33,7 +31,7 @@
 
 - Probleme bei U_ap
   - Zu Langsam nach Vorne
-  - Negative Schubkraft ?
+  
 -Trim Fehler zu hoch 
 
 %%%%%%%%%%%%%%Anmerkung %%%%%%%%%%%%

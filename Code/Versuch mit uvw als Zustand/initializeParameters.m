@@ -35,9 +35,8 @@ P_aerodynCenter = [0.12*c;0;0];
 %Motor and Thrust
 P_thrust = [0.23*c;0;0.1*c+1.9]; %Position of the motor [m] 
 i_f = 0 ; %Direction of Thrus [rad];
-%F_max = 2*128000; %Maximale Schubkraft ohne Nachbrenner [N]
-F_max = m*g; %Maximale Schubkraft ohne Nachbrenner [N]
-
+%F_max = 2*180000; %Maximale Schubkraft ohne Nachbrenner [N]
+F_max = m*g; %Warning - This is obviusly not the max thrust produced by the turbines. The max Turbine Force is considered on the maximum value of sigmaf
 
 globalParameters.g = g;
 globalParameters.m = m;
