@@ -7,7 +7,7 @@ if type == 3
     matrix_transformation = [cos(angle) sin(angle) 0; -sin(angle) cos(angle) 0; 0 0 1];
 elseif type == 2
     matrix_transformation = [cos(angle) 0 -sin(angle); 0 1 0; sin(angle) 0 cos(angle)];
-elseif type ==1
+elseif type == 1
     matrix_transformation = [1 0 0;0 cos(angle) sin(angle);0 -sin(angle) cos(angle)];
 else
     disp('Not a valid Type');
