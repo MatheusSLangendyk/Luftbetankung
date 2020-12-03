@@ -110,6 +110,8 @@ R_total = RA + Rf; %Sum of external Forces in Body reference Frame [N]
 Tfg =  coordTransfMatrix(phi,1)*coordTransfMatrix(theta,2)*coordTransfMatrix(psi,3); % Transformation Matrix goedetic --> body reference Frame
 Tgf = Tfg';%Transformation to North East Down
 Omega_tilde = vecToMat(Omega);
+
+
 dOmega = I_inv*(Q_total - Omega_tilde*I*Omega); %Derivative of Rotation Rate (body Reference Frame)
 dV = R_total/m + Tfg*[0;0;g] - (Omega_tilde + Omega_e_tilde)*V; %Derivatitive of the Speed (body Reference Frame)
 dvA = (u*dV(1) + v*dV(2) +w*dV(3))/sqrt(u^2+v^2+w^2); %Derivative of the Approach Speed
