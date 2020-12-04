@@ -10,7 +10,7 @@ phi = X(7);
 psi = X(9);
 h = X(10);
 
-Q = [dX;v;phi;psi;h-2000];
+Q = [dX;v;phi;psi;h-1000];
 H = diag(ones(1,14));
 F0 = Q'*H*Q;
 end

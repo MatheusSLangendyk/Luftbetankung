@@ -9,7 +9,7 @@ r = X(6);
 phi = X(7);
 theta = X(8);
 psi = X(9);
-
+h = X(10);
 
 %--------------Control------------%
 eta = U(1);
@@ -19,7 +19,7 @@ zita = U(4);
 
 %--------------Constants------------%
 [globalParameters,m,g,~,I_inv] = initializeParameters();
-rho_const = globalParameters.rho_const ;
+[~,~,~, rho] = atmosisa(h);
 Omega_e_tilde = globalParameters.Omega_e_tilde ;
 I = globalParameters.I ;
 S = globalParameters.S ;
@@ -41,14 +41,14 @@ gradient_CQ_Cbeta = -1.6;
 gradientCQ_Czita = 0.24;
 CW0 = 0.13;
 kappa = 0.07;
-% a3 = -768.5;
-% a2 = 609.2;
-% a1 = -155.2;
-% a0 = 15.212;
+a3 = -768.5;
+a2 = 609.2;
+a1 = -155.2;
+a0 = 15.212;
 
 %--------------Variables------------%
 vA = sqrt(u^2+v^2+w^2);
-q_d = 0.5*rho_const*vA^2; %Dynamic Preassure
+q_d = 0.5*rho*vA^2; %Dynamic Preassure
 Omega = [p;q;r];
 V = [u;v;w];
 alpha = atan2(w,u);
@@ -56,12 +56,12 @@ beta = asin(v/vA);
 %--------------Aerodynamical Coefficients------------%
 %Forces Coefficients
 
-% if alpha <=14.5*pi/180
+if alpha <=14.5*pi/180
      
      CA_F = grad_alpha*(alpha -alpha_L0);
-% else
-%      CA_F = a3*alpha^.3+a2*alpha^.2+a1*alpha +a0;% Lift Coefficient without the Control Aereas
-% end
+else
+     CA_F = a3*alpha^.3+a2*alpha^.2+a1*alpha +a0;% Lift Coefficient without the Control Aereas
+end
 epsolon = gradient_alpha_epsolon*(alpha - alpha_L0); %Downwash [rad]
 alpha_t = alpha - epsolon + eta +1.3*q*lt/vA; %Angle of Attack of the Tail [rad]
 CA_H = 3.1*(St/S)*alpha_t; %Lift Coefficient of the Control Aereas (Elevator-Tail)
@@ -93,7 +93,7 @@ Tfa = coordTransfMatrix(alpha,2)*coordTransfMatrix(-beta,3); %Transformation Mat
 
 RA_a =[-W;Q;-A]; %Aerodynamical Force in Aerdodynamical Reference Frame
 RA = Tfa*RA_a; %Aerodynamical Force in Body Reference Frame
-QA_aerodynCenter = q_d*S*c*[CL;CM;CN]; %Torque on the aerodynamical Center
+QA_aerodynCenter = q_d*S*[0.5*b*CL;c*CM;0.5*b*CN]; %Torque on the aerodynamical Center
 QA = QA_aerodynCenter + vecToMat(P_centerGravity- P_aerodynCenter)*RA; %Aerodynamical Force in Body Reference Frame
 
 
@@ -121,7 +121,6 @@ dP_e = Tgf*V;
 dh = - dP_e(3); %Derivative of z-position (earth Reference Frame)
 J = 1/cos(theta)*[cos(theta) sin(phi)*sin(theta) cos(phi)*sin(theta) ;0 cos(phi)*cos(theta) -sin(phi)*cos(theta);0 sin(phi) cos(phi)]; %Rotation rate matrix
 dPhi = J*Omega; %Derivative of Euler Angles
-%dX = [dV; dOmega;dPhi;dh;dvA;dalpha;dbeta];
 dX = [dV; dOmega;dPhi;dh];
 end
 

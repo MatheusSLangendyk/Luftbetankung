@@ -5,21 +5,23 @@ close all
 % Get Model Parameters 
 [globalParameters,m,g,he,I_inv] = initializeParameters();
 %Initial Values
-h_init = 2000;
+h_init = 1000;
+P_e_init = [0;0;-h_init];
 V_init = [85;0;0];
+%latlon_init = [40.712776;-74.005974]; %New York
+latlon_init = [0;0];
 vA_init = sqrt(V_init(1)^2+V_init(2)^2+V_init(3)^2);
 Omega_init = [0;0;0];
 Phi_init = [0;0;0];
 alpha_init = 0;
 beta_init = 0;
-%X_init = [V_init;Omega_init;Phi_init;h_init;vA_init;alpha_init;beta_init];
 X_init = [V_init;Omega_init;Phi_init;h_init];
-U_test = [-0.1;1;0;0];
+U_test = [-0.12;1;0;0];
 
 % %Trim and Lienarisation
- [X_ap,U_ap,f0] = trimValues(V_init(1),h_init);
- %X_init = X_ap;
- %U_test = U_ap;
+[X_ap,U_ap,f0] = trimValues(V_init(1),h_init);
+ X_init = X_ap;
+ U_test = U_ap;
 % %Linearisation
 [A,B] = implicit_linmod(@model_implicit,X_ap,U_ap);
 C = zeros(4,10);
@@ -52,11 +54,12 @@ end
 % % Stability and Dynamics
 eigenvalues = eig(A);
 % % Test Controller
-% ew_contr = eigenvalues';
-% ew_contr(1) = 0.1;
-% ew_contr(2) = -ew_contr(2);
-% ew_contr(2) = -0.2;
-% ew_contr(3) = -0.3;
-% K = place(A,B,ew_contr);
+ ew_contr = eigenvalues;
+ ew_contr(1) = -0.001;
+ ew_contr(10) = -ew_contr(10);
+ K = place(A,B,ew_contr);
+ Ak = A -B*K;
+ eigenvalues_controlled = eig(Ak);
+ F = -inv(C*(Ak\B));
 
 

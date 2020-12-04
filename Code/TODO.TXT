@@ -1,0 +1,17 @@
+
+
+
+- Andere Flugsformen (nicht nur gerader Flug)
+
+-Welcher EW nicht Beoabachtbar ? ->Hautus anwenden
+
+- Eigenwerte analysieren und plausabilisieren
+
+-Evntl. Sensorik + Rauschen einfügen 
+
+
+
+
+
+
+
