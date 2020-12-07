@@ -24,15 +24,19 @@ U_test = [-0.12;1;0;0];
  U_test = U_ap;
 % %Linearisation
 [A,B] = implicit_linmod(@model_implicit,X_ap,U_ap);
+%Set values under 10e-13 = 0
+indices = find(abs(A)<10e-13);
+A(indices) = 0;
+%Define Outputs
 C = zeros(4,10);
-C(1,1) = 1;
-C(2,2) = 1;
-C(3,3) =1;
-C(4,10) = 1;
+C(1,1) = 1; %u-Spped
+C(2,3) = 1;%w-Speed
+C(3,9) =1; %psi-Angle
+C(4,10) = 1;% Height
 % %Saturations
 eta_max = 10*pi/180; %Elevator
 eta_min = - 25*pi/180; 
-sigmaf_max = 10*pi/180; %Throttlw
+sigmaf_max = 10*pi/180; %Throttl
 sigmaf_min = 0.5*pi/180;
 xi_max = 25*pi/180; %Airlon
 xi_min = - xi_max;
@@ -51,12 +55,21 @@ if rank(Mb) ~= min(size(Mb,1),size(Mb,2))
 else
     disp('System is Kalman Obsarvable')
 end
-% % Stability and Dynamics
+
 eigenvalues = eig(A);
+n = size(A,1);
+%Hautus
+% for i = 1:n
+%     eig_i = eigenvalues(i);
+%     if rank([eig_i*eye(n,n)-A;C]) ~=n
+%         
+%         disp(['Eigenvalue ',num2str(eig_i),' is not obsarvable ']);
+%     end
+% end
 % % Test Controller
  ew_contr = eigenvalues;
- ew_contr(1) = -0.001;
- ew_contr(10) = -ew_contr(10);
+ ew_contr(1) = -0.2;
+ ew_contr(10) = -0.1;
  K = place(A,B,ew_contr);
  Ak = A -B*K;
  eigenvalues_controlled = eig(Ak);
