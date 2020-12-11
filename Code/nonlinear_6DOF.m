@@ -1,4 +1,4 @@
-function [dX] = nonlinear_6DOF(X,U)
+function [dX] = nonlinear_6DOF(X,U,plain_selector)
 %--------------States------------%
 u = X(1);
 v = X(2);
@@ -21,17 +21,32 @@ zita = U(4);
 [globalParameters,m,g,~,I_inv] = initializeParameters();
 [~,~,~, rho] = atmosisa(h);
 Omega_e_tilde = globalParameters.Omega_e_tilde ;
-I = globalParameters.I ;
-S = globalParameters.S ;
-St = globalParameters.St ;
-lt = globalParameters.lt ;
-b = globalParameters.b ;
-c = globalParameters.c ;
-P_thrust = globalParameters.P_thrust ;
-P_centerGravity = globalParameters.P_centerGravity ;
-P_aerodynCenter = globalParameters.P_aerodynCenter ;
-i_f = globalParameters.i_f ;
-F_max = globalParameters.Fmax;
+if plain_selector ==1
+    I = globalParameters.I ;
+    S = globalParameters.S ;
+    St = globalParameters.St ;
+    lt = globalParameters.lt ;
+    b = globalParameters.b ;
+    c = globalParameters.c ;
+    P_thrust = globalParameters.P_thrust ;
+    P_centerGravity = globalParameters.P_centerGravity ;
+    P_aerodynCenter = globalParameters.P_aerodynCenter ;
+    i_f = globalParameters.i_f ;
+    F_max = globalParameters.Fmax;
+else
+    I = globalParameters.I ;
+    S = globalParameters.S ;
+    St = globalParameters.St ;
+    lt = globalParameters.lt ;
+    b = globalParameters.b ;
+    c = globalParameters.c ;
+    P_thrust = globalParameters.P_thrust ;
+    P_centerGravity = globalParameters.P_centerGravity ;
+    P_aerodynCenter = globalParameters.P_aerodynCenter ;
+    i_f = globalParameters.i_f ;
+    F_max = globalParameters.Fmax;
+end
+    
 % Airdynamical Coefficients
 %CA0 = 1.104;
 grad_alpha = 5.5;
@@ -123,6 +138,3 @@ J = 1/cos(theta)*[cos(theta) sin(phi)*sin(theta) cos(phi)*sin(theta) ;0 cos(phi)
 dPhi = J*Omega; %Derivative of Euler Angles
 dX = [dV; dOmega;dPhi;dh];
 end
-
-
-

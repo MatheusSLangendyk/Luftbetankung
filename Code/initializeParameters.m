@@ -6,8 +6,8 @@ m = 120000; %Mass [kg]
 
 % Modelling the atmosphere 
 rho_const = 1.225; %Airdensity (simplification)
-%omega_e = 7.29211510*10^(-5); %Rotation Speed of earth [rad/s]
-omega_e = 0;
+omega_e = 7.29211510*10^(-5); %Rotation Speed of earth [rad/s]
+%omega_e = 0;
 he = 6356752; %Earth radius [m]
 Omega_e_tilde = vecToMat([0;0;omega_e]);
 
