@@ -7,7 +7,7 @@ close all
 %Initial Values
 h_init_1 = 1000;
 P_e_init_1 = [0;0;-h_init_1];
-V_init_1 = [50;0;0];
+V_init_1 = [92;0;0];
 %latlon_init = [40.712776;-74.005974]; %New York
 latlon_init = [0;0];
 Omega_init_1 = [0;0;0];
@@ -28,6 +28,8 @@ X_init = [X_init_1;X_init_2];
 [X_ap_2,U_ap_2,f0_2] = trimValues(V_init_2(1),h_init_2,2);
 X_ap = [X_ap_1;X_ap_2];
 U_ap = [U_ap_1;U_ap_2];
+X_init = X_ap;
+U_test = U_ap;
 % %Linearisation
 
 [A_1,B_1] = implicit_linmod(@model_implicit,X_ap_1,U_ap_1,1);
@@ -68,12 +70,13 @@ for i = 1:n
     end
 end
 % % % Test Controller
-%  ew_contr = eigenvalues;
-%  ew_contr(1) = -0.2;
-%  ew_contr(10) = -0.1;
-%  K = place(A,B,ew_contr);
-%  Ak = A -B*K;
-%  eigenvalues_controlled = eig(Ak);
-%  F = -inv(C*(Ak\B));
+  ew_contr = eigenvalues;
+  ew_contr(1) = -0.2;
+  ew_contr(2) = -0.1;
+  ew_contr(20) = -0.001;
+  K = place(A,B,ew_contr);
+  Ak = A -B*K;
+  eigenvalues_controlled = eig(Ak);
+  F = -inv(C*(Ak\B));
 
 
