@@ -8,7 +8,7 @@ m = 120000; %Mass [kg]
 m_fuel = 28000; %Mass of the fuel
 time_refuel = 20; % Time to refuel in sec
 start_time_refuel = 10; 
-refuel = 0; %Without refuel = 1, with refuel = 0
+refuel = 1; %Without refuel = 1, with refuel = 0
 
 % Modelling the atmosphere 
 rho_const = 1.225; %Airdensity (simplification)
