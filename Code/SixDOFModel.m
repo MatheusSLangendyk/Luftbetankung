@@ -20,8 +20,8 @@ U_test = [-0.12;1;0;0];
 
 % %Trim and Lienarisation
 [X_ap,U_ap,f0] = trimValues(V_init(1),h_init);
- X_init = X_ap;
- U_test = U_ap;
+U_test = U_ap;
+deltaX_init = X_init-X_ap;
 % %Linearisation
 [A,B] = implicit_linmod(@model_implicit,X_ap,U_ap);
 %Set values under 10e-13 = 0
@@ -29,7 +29,7 @@ indices = find(abs(A)<10e-13);
 A(indices) = 0;
 %Define Outputs
 C = zeros(4,10);
-C(1,1) = 1; %u-Spped
+C(1,2) = 1; %v-Spped
 C(2,3) = 1;%w-Speed
 C(3,9) =1; %psi-Angle
 C(4,10) = 1;% Height
@@ -67,12 +67,16 @@ n = size(A,1);
 %     end
 % end
 % % Test Controller
- ew_contr = eigenvalues;
- ew_contr(1) = -0.2;
- ew_contr(10) = -0.1;
- K = place(A,B,ew_contr);
- Ak = A -B*K;
- eigenvalues_controlled = eig(Ak);
- F = -inv(C*(Ak\B));
-
-
+sys = ss(A, B, C, 0);
+sys.InputName = {'eta', 'sigmaf', 'xi', 'zeta'};
+sys.OutputName = {'v_u', 'v_w', 'psi', 'h'};
+ew_contr = eigenvalues;
+ew_contr(1) = -0.2;
+ew_contr(10) = -0.1;
+K = place(A,B,ew_contr);
+Ak = A-B*K;
+sys_cl = ss(Ak, B, C, 0);
+eigenvalues_controlled = eig(Ak);
+F = (C*inv(B*K-A)*B);
+F = inv(F)
+addpath('C:\Users\Markus\Documents\Uni\WISE2021\Projektseminar\gammasyn')
