@@ -89,16 +89,8 @@ end
   inv_nullpoints = eig(H,E);
   
   %% plot 3D
-  x=;
-  y=3;
-  z=5;
-  l=20;
-  w=32;
-  h=15;
-[a,b,c]=meshgrid([0 1]);
-p=alphaShape(l*a(:)-(l-x),w*b(:)-(w-y),h*c(:)-(0-z));
-plot(p,'edgecolor','none')
-xlabel('x');ylabel('y');zlabel('z')
-camlight
-
-
+  l=48;w=38;h=36;
+  x=out.Xe.Data(1,1);y=out.Xe.Data(1,2);z=out.Xe.Data(1,3); 
+  [a,b,c]=m
+  
+  

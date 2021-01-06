@@ -88,26 +88,4 @@ end
   E = [eye(n,n) zeros(n,8);zeros(8,n) zeros(8,8)];
   inv_nullpoints = eig(H,E);
   
-  %% plot 3D
-  x1=P_aerodynCenter-10;
-  y1=P_aerodynCenter-16;
-  z1=P_aerodynCenter-7.5;
   
-  x2=P_aerodynCenter-20;
-  y2=P_aerodynCenter-26;
-  z2=P_aerodynCenter-17.5;
-  
-  l=20;
-  w=32;
-  h=15;
-  %[a,b,c]=meshgrid([0 1]);
-  p1=alphaShape(l*a(:)-(l-x),w*b(:)-(w-y),h*c(:)-(0-z));
-  plot(p1,'edgecolor','none')
-  
-  p2=alphaShape(l*a(:)-(l-x),w*b(:)-(w-y),h*c(:)-(0-z));
-  plot(p2,'edgecolor','none')
-  
-  xlabel('x');ylabel('y');zlabel('z')
-  camlight
-
-
