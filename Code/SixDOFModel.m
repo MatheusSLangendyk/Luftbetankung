@@ -73,6 +73,7 @@ sys.OutputName = {'v_u', 'v_w', 'psi', 'h'};
 ew_contr = eigenvalues;
 ew_contr(1) = -0.2;
 ew_contr(10) = -0.1;
+ew_contr = real(ew_contr);
 K = place(A,B,ew_contr);
 Ak = A-B*K;
 sys_cl = ss(Ak, B, C, 0);
