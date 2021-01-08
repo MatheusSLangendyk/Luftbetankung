@@ -6,8 +6,8 @@ B = [B_1, zeros(n/2,m/2);zeros(n/2,m/2), B_2];
 
 %Set values under 10e-13 = 0
 
-%A(find(abs(A)<10e-13)) = 0;
-A((abs(A)<10e-13)) = 0;
+
+A((abs(A)<100*eps)) = 0;
 
 C = zeros(m,n);
 

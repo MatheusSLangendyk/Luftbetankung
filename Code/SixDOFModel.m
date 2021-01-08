@@ -2,12 +2,14 @@
 clc
 clear
 close all
+system_norm = false;
+deltah_offset = 10;
 % Get Model Parameters 
 [globalParameters,m,g,he,I_inv] = initializeParameters();
 %Initial Values
 h_init_1 = 1000;
 P_e_init_1 = [0;0;-h_init_1];
-V_init_1 = [70;0;0];
+V_init_1 = [100;0;0];
 %latlon_init = [40.712776;-74.005974]; %New York
 latlon_init = [0;0];
 Omega_init_1 = [0;0;0];
@@ -15,9 +17,9 @@ Phi_init_1 = [0;0;0];
 X_init_1 = [V_init_1;Omega_init_1;Phi_init_1;h_init_1];
 
 %Plain 2
-h_init_2 = 1010;
+h_init_2 = h_init_1+deltah_offset
 P_e_init_2 = [0;0;-h_init_2];
-V_init_2 = [70;0;-10];
+V_init_2 = [50;0;-10];
 Omega_init_2 = [0;0;0];
 Phi_init_2 = [0;0.2;0];
 X_init_2 = [V_init_2;Omega_init_2;Phi_init_2;h_init_2];
@@ -28,8 +30,8 @@ X_init = [X_init_1;X_init_2];
 [X_ap_2,U_ap_2,f0_2] = trimValues(V_init_2(1),h_init_2,2);
 X_ap = [X_ap_1;X_ap_2];
 U_ap = [U_ap_1;U_ap_2];
-%X_init = X_ap;
-%U_test = U_ap;
+X_init = X_ap;
+U_test = U_ap;
 % %Linearisation
 
 [A_1,B_1] = implicit_linmod(@model_implicit,X_ap_1,U_ap_1,1);
@@ -70,23 +72,39 @@ for i = 1:n
     end
 end
 %% % Test Controller
+ if system_norm == true
+    [A,B,C] = normieren(A,B,C,eta_max,sigmaf_max,xi_max,zita_max);
+  end
+  
   ew_contr = eigenvalues;
-  ew_contr(1) = -0.2;
-  ew_contr(2) = -0.1;
-  ew_contr(10) = -0.09;
-  ew_contr(20) = -0.1;
-  ew_contr = 5*real(ew_contr);
-  K = place(A,B,ew_contr);
-  Ak = A -B*K;
-  eigenvalues_controlled = 5*eig(Ak);
-  F = -inv(C*(Ak\B));
+  ew_contr(1) = -0.02;
+  ew_contr(2) = -0.01;
+  ew_contr(20) = -0.01;
+  %ew_contr = ew_contr;
+  %K = place(A,B,ew_contr);
+%   Ak = A -B*K;
+%   eigenvalues_controlled = eig(Ak);
+%   F = -inv(C*(Ak\B));
   
   %% Transfer Function Open Loop
   sys_ol = ss(A,B, C,zeros(8,8));
+
   tf_ol = tf(sys_ol); %Transfer Function
   H = [A B; -C zeros(8,8)];
   E = [eye(n,n) zeros(n,8);zeros(8,n) zeros(8,8)];
   inv_nullpoints = eig(H,E);
   
+  %%Riccatti
+  Q = eye(n,n);
+  Q(8,8) = 100;
+  
+  R = 1000000*eye(8,8);
+  R(2,2) = 400000;
+  R(5,5) = 200000;
+  R(6,6) = 900000;
+  K = lqr(sys_ol,Q,R);
+  Ak = A -B*K;
+  eigenvalues_controlled = eig(Ak);
+  F = -inv(C*(Ak\B));
 
 
