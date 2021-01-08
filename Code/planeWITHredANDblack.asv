@@ -20,10 +20,11 @@ for n=1:300
   drawnow
   frame(n) = getframe(gcf);
   pause(1);
+  hold off
 end
 
 camlight
-hold off;
+%hold off;
 % ein Video herstellen
 v = VideoWriter('trackOFplane.avi');  % Das erzeugte Video heisst 'trackOFplane.avi'.
 v.FrameRate = 1;     % Die Abspielengeschwindigkeit des Videos (wie viele Bilder pro Sekunkde)
