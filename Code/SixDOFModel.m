@@ -17,7 +17,7 @@ Phi_init_1 = [0;0;0];
 X_init_1 = [V_init_1;Omega_init_1;Phi_init_1;h_init_1];
 
 %Plain 2
-h_init_2 = h_init_1+deltah_offset
+h_init_2 = h_init_1+deltah_offset;
 P_e_init_2 = [0;0;-h_init_2];
 V_init_2 = [50;0;-10];
 Omega_init_2 = [0;0;0];
@@ -37,6 +37,7 @@ U_test = U_ap;
 [A_1,B_1] = implicit_linmod(@model_implicit,X_ap_1,U_ap_1,1);
 [A_2,B_2] = implicit_linmod(@model_implicit,X_ap_2,U_ap_2,2);
 [A,B,C,n] = defineABC(A_1,A_2,B_1,B_2);
+W_ap = C*X_ap;
 
 %Saturations
 eta_max = 10*pi/180; %Elevator
@@ -76,15 +77,6 @@ end
     [A,B,C] = normieren(A,B,C,eta_max,sigmaf_max,xi_max,zita_max);
   end
   
-  ew_contr = eigenvalues;
-  ew_contr(1) = -0.02;
-  ew_contr(2) = -0.01;
-  ew_contr(20) = -0.01;
-  %ew_contr = ew_contr;
-  %K = place(A,B,ew_contr);
-%   Ak = A -B*K;
-%   eigenvalues_controlled = eig(Ak);
-%   F = -inv(C*(Ak\B));
   
   %% Transfer Function Open Loop
   sys_ol = ss(A,B, C,zeros(8,8));
