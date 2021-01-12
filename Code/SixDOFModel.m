@@ -7,9 +7,9 @@ deltah_offset = 10;
 % Get Model Parameters 
 [globalParameters,m,g,he,I_inv] = initializeParameters();
 %Initial Values
-h_init_1 = 1000;
+h_init_1 = 8000;
 P_e_init_1 = [0;0;-h_init_1];
-V_init_1 = [100;0;0];
+V_init_1 = [200;0;0];
 %latlon_init = [40.712776;-74.005974]; %New York
 latlon_init = [0;0];
 Omega_init_1 = [0;0;0];
@@ -19,9 +19,9 @@ X_init_1 = [V_init_1;Omega_init_1;Phi_init_1;h_init_1];
 %Plain 2
 h_init_2 = h_init_1+deltah_offset;
 P_e_init_2 = [0;0;-h_init_2];
-V_init_2 = [50;0;-10];
+V_init_2 = [220;0;0];
 Omega_init_2 = [0;0;0];
-Phi_init_2 = [0;0.2;0];
+Phi_init_2 = [0;0;0];
 X_init_2 = [V_init_2;Omega_init_2;Phi_init_2;h_init_2];
 U_test = [-0.12;1;0;0;-0.1;1;0;0];
 X_init = [X_init_1;X_init_2];
@@ -31,13 +31,17 @@ X_init = [X_init_1;X_init_2];
 X_ap = [X_ap_1;X_ap_2];
 U_ap = [U_ap_1;U_ap_2];
 X_init = X_ap;
+X_init(3)=0;
+X_init(13)=0;
 U_test = U_ap;
 % %Linearisation
 
 [A_1,B_1] = implicit_linmod(@model_implicit,X_ap_1,U_ap_1,1);
 [A_2,B_2] = implicit_linmod(@model_implicit,X_ap_2,U_ap_2,2);
 [A,B,C,n] = defineABC(A_1,A_2,B_1,B_2);
-W_ap = C*X_ap;
+% W_ap = C*X_ap;
+W_ap = [X_ap_1(1); X_ap_2(1); 0; 0; X_ap_1(10); X_ap_2(10); 0; 0];
+
 
 %Saturations
 eta_max = 10*pi/180; %Elevator
@@ -88,7 +92,10 @@ end
   
   %%Riccatti
   Q = eye(n,n);
-  Q(8,8) = 100;
+  Q(10,10) = 100; % Bestrafung Höhe
+  Q(20,20) = 100;
+  Q(3,3) = 100; %Bestrafung Geschw. z-Komoponente
+  Q(13,13) = 100;
   
   R = 1000000*eye(8,8);
   R(2,2) = 400000;

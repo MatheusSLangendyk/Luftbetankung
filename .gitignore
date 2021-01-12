@@ -1,3 +1,5 @@
 *.slxc
 */slprj
+*.slx.autosave
+*.asv
 /Code/gammasyn
