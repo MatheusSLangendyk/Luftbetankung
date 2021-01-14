@@ -1,14 +1,12 @@
 
+-Vorzeichen Frage eingehen
 
+- Ausgänge definieren
 
-- Andere Flugsformen (nicht nur gerader Flug)
+- Hauptmodell Regeln
 
--Welcher EW nicht Beoabachtbar ? ->Psi muss als Ausgang dargstellt werden ---> evntl beide turbinen einfügen, oder u,w,psi,h als Ausgang
+- Störung aufschalten
 
-
-- Eigenwerte analysieren und plausabilisieren
-
--Evntl. Sensorik + Rauschen einfügen 
 
 
 

@@ -30,10 +30,10 @@ X_init = [X_init_1;X_init_2];
 [X_ap_2,U_ap_2,f0_2] = trimValues(V_init_2(1),h_init_2,2);
 X_ap = [X_ap_1;X_ap_2];
 U_ap = [U_ap_1;U_ap_2];
-X_init = X_ap;
-X_init(3)=0;
-X_init(13)=0;
-U_test = U_ap;
+% X_init = X_ap;
+% % X_init(3)=0;
+% % X_init(13)=0;
+% U_test = U_ap;
 % %Linearisation
 
 [A_1,B_1] = implicit_linmod(@model_implicit,X_ap_1,U_ap_1,1);
@@ -92,8 +92,12 @@ end
   
   %%Riccatti
   Q = eye(n,n);
-  Q(10,10) = 100; % Bestrafung Höhe
-  Q(20,20) = 100;
+  Q(8,8) = 1000; %Bestrafung theta
+  Q(18,18) = 1000; 
+  Q(9,9) = 10000; %Bestrafung psi
+  Q(19,19) = 10000; 
+  Q(10,10) = 1; % Bestrafung Höhe
+  Q(20,20) = 1;
   Q(3,3) = 100; %Bestrafung Geschw. z-Komoponente
   Q(13,13) = 100;
   
