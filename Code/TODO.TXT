@@ -1,12 +1,9 @@
 
--Vorzeichen Frage eingehen
 
 - Ausgänge definieren
 
-- Hauptmodell Regeln
 
 - Störung aufschalten
-
 
 
 
