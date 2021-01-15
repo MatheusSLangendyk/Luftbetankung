@@ -1,4 +1,4 @@
-function [A,B,C,n] = defineABC(A_1,A_2,B_1,B_2)
+function [A,B,C,n,C_tilde] = defineABC(A_1,A_2,B_1,B_2)
 n = size(A_1,1) +size(A_2,2);
 m = size(B_1,2) + size(B_2,2);
 A = [A_1 zeros(n/2,n/2);zeros(n/2,n/2) A_2];
@@ -32,6 +32,20 @@ C(8,19) = 1; %psi 2
 % C(6,18) =-1;
 % C(7,9) = 1; %psi 1
 % C(8,19) =1; %psi 2 
+C_tilde = zeros(m,n);
+C_tilde(1,1) = 1;
+C_tilde(2,2) =1;
+C_tilde(3,9) = 1;
+C_tilde(4,10) = 1;
+C_tilde(5,1) = 1;
+C_tilde(5,11) = -1;
+C_tilde(6,2) = 1;
+C_tilde(6,12) = -1;
+C_tilde(7,9) = 1;
+C_tilde(7,19) = -1;
+C_tilde(8,10) = 1;
+C_tilde(8,20) = -1;
+
 
 end
 
