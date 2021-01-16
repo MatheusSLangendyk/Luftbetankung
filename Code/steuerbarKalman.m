@@ -20,7 +20,7 @@ M = zeros(n,n*p);
 
 for i=1:n
     M(:,(i-1)*p+1:i*p)=sys.A^(i-1)*sys.B;
-    rank(M)
+    
 end
 
 % Rangüberprüfung

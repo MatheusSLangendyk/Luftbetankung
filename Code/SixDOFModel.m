@@ -108,36 +108,13 @@ end
   K = lqr(sys_ol,Q,R);
   Ak = A -B*K;
   ew_ricati = eig(Ak);
-  %sys_ricati = ss(Ak,B,C,zeros(8,8));
+  sys_ricati = ss(Ak,B,C,zeros(8,8));
   F = -inv(C*(Ak\B));
   %% Coupling Control (manual) Cascade
   l = 4; %coupling conditions
-   C1_tilde = C_tilde(1:l,:);
-   C2_tilde = C_tilde(l+1:end,1:end);
-%   Vr = zeros(n,n);
-%   vr_rank = 1;
-%   Pr = zeros(8,n);
-%   %Calculate the first vr_rank Values of the Vr Matrix. vr_rank eigenvalues
-%   %not observable
-%   for i = 1:n
-%       eig_k = eigenvalues_controlled(i);
-%       M_total = null([eig_k*eye(n,n)-Ak,  -B;C2_tilde, zeros(l,8)]);
-%       M = M_total(:,1);
-%       Vr(:,i) = M(1:n);
-%       Pr(:,i) = M(n+1:end);
-%       if rank(Vr(:,1:vr_rank)) == min(size(Vr(:,1:vr_rank),1),size(Vr(:,1:vr_rank),2)) % If max rank available
-%           vr_rank = vr_rank +1;
-%       else
-%           break
-%       end
-%   end
-%   %l- vr_rank eigenvalues not conntrolable
-%   Vr1 = Vr(:,1:vr_rank);
-%   N = null([B, Vr1]);
-%   F1 = N(1:8,1:8-l);
-% %   Q_coupling = inv(C1_tilde*(B*K_coupling - A)\B*F1);
-% %   F1_tilde = F1*Q_coupling
-[K_coupling, F_coupling] = coupling_control(sys_ol,C_tilde,ew_ricati,l);
+  C1_tilde = C_tilde(1:l,:);
+  C2_tilde = C_tilde(l+1:end,1:end);
+  [K_coupling, F_coupling] = coupling_control(sys_ol,C_tilde,ew_ricati,l);
 
 
 
